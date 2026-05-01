@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.axes
 import matplotlib.figure
 import numpy as np
-from matplotlib.cycler import cycler
+from cycler import cycler
 
 # ---------------------------------------------------------------------------
 # Color palette

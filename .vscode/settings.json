@@ -8,6 +8,18 @@
             "approve": true,
             "matchCommandLine": true
         },
-        "/opt/homebrew/bin/python3": true
+        "/opt/homebrew/bin/python3": true,
+        "/^python pipelines/3_eda/eda_data_creation\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python3 pipelines/3_eda/eda_data_creation\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^python3 -c \"import pandas as pd; df = pd\\.read_parquet\\('data/input/processed/sales\\.parquet'\\); print\\(df\\['document_date'\\]\\.head\\(\\)\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
     }
 }

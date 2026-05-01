@@ -8,3 +8,5 @@ jupyter>=1.0.0
 ipython>=8.0.0
 PyYAML>=6.0
 pyarrow>=14.0.0
+polars>=1.0.0
+statsmodels>=0.14.0
