@@ -37,3 +37,16 @@ raw_processing:
     id_columns_to_str:    [outlet_id, territory_id]
   region:
     id_columns_to_str: [territory_id]
+
+# Item classification
+item_classification:
+  # activity_rate = n_active_months / total_months  (active = gross_quantity > 0)
+  # cv            = std / mean  on non-zero demand months only
+  thresholds:
+    activity_continuous_min: 0.80   # activity_rate >= this → eligible for Continuous
+    cv_continuous_max:        0.50   # cv < this            → Continuous (with activity check)
+    activity_lumpy_max:       0.20   # activity_rate < this → Lumpy
+    cv_lumpy_min:             1.00   # cv > this            → Lumpy
+  special_flags:
+    structural_collapse: prod_line3   # -29.7% CAGR: piecewise trend required
+    hyper_growth:        prod_line17  # +163.6% CAGR: Bass diffusion / short window
