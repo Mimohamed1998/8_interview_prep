@@ -1,0 +1,26 @@
+# Configuration File
+# Project settings and parameters
+
+# Data paths
+data:
+  raw_path: data/input/raw/
+  processed_path: data/input/processed/
+  intermediate_path: data/Intermediate/
+  output_path: data/output/
+
+# Model parameters
+model:
+  random_state: 42
+  test_size: 0.2
+  validation_size: 0.1
+
+# Logging
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Visualization
+visualization:
+  theme: mckinsey
+  dpi: 300
+  figsize: [10, 6]

@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+
+# Large data and assessment files
+data/
+DS Lead_Assessment.zip
+Sr. Data Scientist Assessment/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Env
+.env
+*.env
