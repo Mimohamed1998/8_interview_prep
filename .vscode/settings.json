@@ -1,0 +1,13 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd /Users/mohamedinas/Desktop/SE_projects/8_stax_interview/8_interview_prep && python3 - <<'PY'\nimport pandas as pd\npath='data/input/raw/invoice_level_sales\\.csv'\ndf=pd\\.read_csv\\(path\\)\nprint\\('shape',df\\.shape\\)\nprint\\('columns',df\\.columns\\.tolist\\(\\)\\)\nprint\\('dtypes'\\)\nprint\\(df\\.dtypes\\)\nprint\\('\\\\nsample'\\)\nprint\\(df\\.head\\(\\)\\.to_string\\(index=False\\)\\)\nprint\\('\\\\nmissing'\\)\nprint\\(df\\.isna\\(\\)\\.sum\\(\\)\\)\nprint\\('\\\\nvalue counts for object cols'\\)\nfor c in df\\.select_dtypes\\(include=\\['object'\\]\\)\\.columns:\n    print\\(c, df\\[c\\]\\.nunique\\(\\), df\\[c\\]\\.value_counts\\(dropna=False\\)\\.head\\(10\\)\\.to_dict\\(\\)\\)\nPY$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^cd /Users/mohamedinas/Desktop/SE_projects/8_stax_interview/8_interview_prep && python3 - <<'PY'\nimport json\nfrom pathlib import Path\npath = Path\\('pipelines/1_dq_report/sales_dq\\.ipynb'\\)\nwith path\\.open\\('r', encoding='utf-8'\\) as f:\n    nb = json\\.load\\(f\\)\nprint\\('nbformat', nb\\.get\\('nbformat'\\), 'cells', len\\(nb\\.get\\('cells', \\[\\]\\)\\)\\)\nfor i, cell in enumerate\\(nb\\['cells'\\]\\[:5\\], 1\\):\n    print\\(i, cell\\['cell_type'\\], cell\\['source'\\]\\[:2\\]\\)\nPY$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/opt/homebrew/bin/python3": true
+    }
+}

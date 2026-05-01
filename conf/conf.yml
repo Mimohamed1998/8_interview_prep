@@ -24,3 +24,16 @@ visualization:
   theme: mckinsey
   dpi: 300
   figsize: [10, 6]
+
+# Raw processing
+raw_processing:
+  files:
+    sales:   invoice_level_sales.csv
+    product: Product Mapping.csv
+    region:  Region Mapping.csv
+  sales:
+    drop_columns:         [is_direct_distributor]
+    return_document_type: return
+    id_columns_to_str:    [outlet_id, territory_id]
+  region:
+    id_columns_to_str: [territory_id]
