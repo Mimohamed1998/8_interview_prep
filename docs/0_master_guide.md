@@ -205,19 +205,7 @@ python pipelines/9_evaluation/evaluation_pipeline.py
 python pipelines/10_export_csv/export_pipeline.py
 ```
 
----
 
-## 8. Monthly Re-run (Production Cadence)
-
-For recurring monthly scoring without re-training, use the `pipelines/20_monthly_pipelines/` shortcuts:
-
-```bash
-python pipelines/20_monthly_pipelines/0_create_item_monthly_data.py
-jupyter nbconvert --to notebook --execute pipelines/20_monthly_pipelines/model_1_continuous_intermittent.ipynb
-jupyter nbconvert --to notebook --execute pipelines/20_monthly_pipelines/model_2_lumpy.ipynb
-```
-
-These notebooks load the existing trained models and score the latest month of data only.
 
 ---
 
