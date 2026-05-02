@@ -6,6 +6,20 @@
 
 ---
 
+## Repository & Branch
+
+| | |
+|---|---|
+| **Repo** | [Mimohamed1998/8_interview_prep](https://github.com/Mimohamed1998/8_interview_prep) |
+| **Working branch** | `monthly_predictions` |
+| **Base branch** | `init/dev` |
+| **Clone** | `git clone https://github.com/Mimohamed1998/8_interview_prep.git` |
+| **Switch to working branch** | `git checkout monthly_predictions` |
+
+> All active development happens on `monthly_predictions`. PRs merge into `init/dev`.
+
+---
+
 ## 1. What This Project Does
 
 This project builds a **monthly demand forecasting system** for an FMCG distribution business. Given historical invoice-level sales data, it produces per-outlet, per-SKU quantity forecasts for the next month. The system handles three distinct demand patterns (Continuous, Intermittent, Lumpy) across three outlet segments (Power, High-Value Active, Low-Value Sporadic), yielding a **3×3 grid of nine XGBoost models**.
