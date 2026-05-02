@@ -5,7 +5,26 @@ import pandas as pd
 
 from src.modeling.model_io import load_model
 from src.modeling.feature_selector import get_feature_columns
-from src.modeling.two_stage import predict_two_stage
+
+
+def _predict_two_stage(clf, reg, X, threshold):
+    """Run two-stage classifier+regressor inference.
+
+    Args:
+        clf: Fitted stage-1 XGBClassifier.
+        reg: Fitted stage-2 XGBRegressor.
+        X: Feature matrix as a numpy array.
+        threshold: Probability cut-off for the classifier.
+
+    Returns:
+        Array of predicted raw quantities (0 where stage-1 predicts zero).
+    """
+    y_proba = clf.predict_proba(X)[:, 1]
+    nonzero_mask = y_proba >= threshold
+    y_pred = np.zeros(len(X), dtype=float)
+    if nonzero_mask.any():
+        y_pred[nonzero_mask] = reg.predict(X[nonzero_mask])
+    return y_pred
 
 
 CELL_REGISTRY = [
@@ -60,7 +79,7 @@ def predict_cell(df_infer, model_path, cell_meta, mod_cfg):
     if cell_meta["lumpy"]:
         clf = load_model(model_path, f"{cell_meta['model_name']}_stage1_clf")
         reg = load_model(model_path, f"{cell_meta['model_name']}_stage2_reg")
-        y_pred = predict_two_stage(clf, reg, X, mod_cfg["classifier_threshold"])
+        y_pred = _predict_two_stage(clf, reg, X, mod_cfg["classifier_threshold"])
     else:
         reg = load_model(model_path, cell_meta["model_name"])
         y_pred = np.clip(reg.predict(X), 0, None)
