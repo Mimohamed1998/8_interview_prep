@@ -1,3 +1,4 @@
+import numpy as np
 import mlflow
 from sklearn.metrics import f1_score, precision_score, recall_score, roc_auc_score
 from xgboost import XGBClassifier
@@ -16,8 +17,10 @@ def train_classifier(df_train, df_eval, feature_cols, target_col,
     mod_cfg = cfg["modeling"]
 
     X_train = df_train[feature_cols].values.astype("float32")
+    X_train[np.isinf(X_train)] = np.nan
     y_train = df_train[target_col].values.astype("float32")
     X_eval = df_eval[feature_cols].values.astype("float32")
+    X_eval[np.isinf(X_eval)] = np.nan
     y_eval = df_eval[target_col].values.astype("float32")
 
     n_neg = (y_train == 0).sum()

@@ -22,3 +22,6 @@ build/
 # Env
 .env
 *.env
+
+#model runs 
+pipelines/6_modeling/mlruns

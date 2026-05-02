@@ -26,11 +26,12 @@ def train_regressor(df_train, df_eval, feature_cols, target_col,
     print(f"[{model_name}] eval:  {n_eval_before} rows → {len(df_eval)} kept ({n_eval_before - len(df_eval)} removed)")
 
     X_train = df_train[feature_cols].values.astype(np.float32)
+    X_train[np.isinf(X_train)] = np.nan
     y_train = df_train[target_col].values.astype(np.float32)
     X_eval = df_eval[feature_cols].values.astype(np.float32)
-    y_eval_log = df_eval[target_col].values.astype(np.float32)
-    y_eval_raw = df_eval["target_qty_raw"].values.astype(np.float32)
-    y_train_raw = df_train["target_qty_raw"].values.astype(np.float32)
+    X_eval[np.isinf(X_eval)] = np.nan
+    y_eval_raw = df_eval[target_col].values.astype(np.float32)
+    y_train_raw = df_train[target_col].values.astype(np.float32)
 
     base_estimator = XGBRegressor(
         objective="reg:squarederror",
@@ -66,18 +67,15 @@ def train_regressor(df_train, df_eval, feature_cols, target_col,
             mlflow_run_name=f"{model_name}_search",
         )
 
-        # Eval metrics (back-transformed to raw units)
-        y_pred_log = reg.predict(X_eval)
-        y_pred_raw = np.expm1(y_pred_log)
+        y_pred_raw = reg.predict(X_eval)
 
         eval_mape, eval_zero_frac = mape(y_eval_raw, y_pred_raw)
         eval_wmape = wmape(y_eval_raw, y_pred_raw)
-        eval_mae = mean_absolute_error(y_eval_log, y_pred_log)
-        eval_rmse = float(np.sqrt(mean_squared_error(y_eval_log, y_pred_log)))
+        eval_mae = mean_absolute_error(y_eval_raw, y_pred_raw)
+        eval_rmse = float(np.sqrt(mean_squared_error(y_eval_raw, y_pred_raw)))
 
         # Train metrics (overfitting check)
-        y_train_pred_log = reg.predict(X_train)
-        y_train_pred_raw = np.expm1(y_train_pred_log)
+        y_train_pred_raw = reg.predict(X_train)
         train_mape, _ = mape(y_train_raw, y_train_pred_raw)
         train_wmape = wmape(y_train_raw, y_train_pred_raw)
 

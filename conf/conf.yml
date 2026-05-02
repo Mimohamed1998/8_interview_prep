@@ -53,10 +53,10 @@ item_classification:
 
 modeling:
   # Time-based split — hard boundary, never random
-  train_start: "2015-01"
+  train_start: "2015-04"
   train_end:   "2018-12"
   eval_start:  "2019-01"
-  eval_end:    "2019-12"
+  eval_end:    "2019-10"
 
   # Target column names
   target_regressor:  "target_qty_raw"
@@ -67,7 +67,7 @@ modeling:
   mlflow_tracking_uri: "mlruns"
 
   # RandomizedSearchCV
-  n_iter:    100
+  n_iter:    1
   cv_splits: 3
   random_state: 42
 
@@ -75,7 +75,14 @@ modeling:
   classifier_threshold: 0.5
 
   # Output directory for saved .pkl models
-  model_output_path: "data/output/models"
+  model_output_path: "../../data/output/models"
+
+inference:
+  start: "2018-10"
+  end:   "2019-12"
+  cell_data_path:   "data/Intermediate"
+  model_path:       "data/output/models"
+  output_path:      "../../data/bu_raw_output/inference_parquet"
 
   # Columns to drop from feature matrix before training
   drop_columns:

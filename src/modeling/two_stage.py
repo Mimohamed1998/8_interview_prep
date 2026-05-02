@@ -12,7 +12,7 @@ def train_two_stage(df_train, df_eval, feature_cols, cfg, model_name_prefix):
     """Train the two-stage classifier+regressor for lumpy demand cells.
 
     Stage 1: XGBClassifier on target_is_nonzero (all rows).
-    Stage 2: XGBRegressor on target_qty_log1p (nonzero-demand rows only).
+    Stage 2: XGBRegressor on target_qty_raw (nonzero-demand rows only).
 
     Returns:
         Tuple of (stage1_classifier, stage2_regressor).
@@ -21,7 +21,9 @@ def train_two_stage(df_train, df_eval, feature_cols, cfg, model_name_prefix):
     param_grid = mod_cfg["xgb_param_grid"]
 
     X_train = df_train[feature_cols].values.astype("float32")
+    X_train[np.isinf(X_train)] = np.nan
     X_eval = df_eval[feature_cols].values.astype("float32")
+    X_eval[np.isinf(X_eval)] = np.nan
     y_train_binary = df_train["target_is_nonzero"].values.astype("float32")
     y_eval_binary = df_eval["target_is_nonzero"].values.astype("float32")
     y_eval_raw = df_eval["target_qty_raw"].values.astype("float32")
@@ -78,7 +80,8 @@ def train_two_stage(df_train, df_eval, feature_cols, cfg, model_name_prefix):
         nonzero_mask_train = df_train["target_is_nonzero"] == 1
         df_train_nz = df_train[nonzero_mask_train]
         X_train_nz = df_train_nz[feature_cols].values.astype("float32")
-        y_train_nz = df_train_nz["target_qty_log1p"].values.astype("float32")
+        X_train_nz[np.isinf(X_train_nz)] = np.nan
+        y_train_nz = df_train_nz["target_qty_raw"].values.astype("float32")
 
         reg_base = XGBRegressor(
             objective="reg:squarederror",
@@ -128,6 +131,5 @@ def predict_two_stage(clf, reg, X, threshold):
     nonzero_mask = y_proba >= threshold
     y_pred = np.zeros(len(X), dtype=float)
     if nonzero_mask.any():
-        y_pred_log = reg.predict(X[nonzero_mask])
-        y_pred[nonzero_mask] = np.expm1(y_pred_log)
+        y_pred[nonzero_mask] = reg.predict(X[nonzero_mask])
     return y_pred

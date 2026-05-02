@@ -58,7 +58,7 @@ modeling:
   eval_end:    "2019-12"
 
   # Target column names
-  target_regressor:  "target_qty_log1p"
+  target_regressor:  "target_qty_raw"
   target_classifier: "target_is_nonzero"
 
   # MLflow
@@ -106,8 +106,7 @@ Any column whose value at time T encodes information about the target (net_quant
 
 | Column | Why it leaks |
 |---|---|
-| `target_qty_raw` | IS the target (future quantity) |
-| `target_qty_log1p` | log transform of target |
+| `target_qty_log1p` | log transform of the active target |
 | `target_is_nonzero` | binary derived from target |
 | `target_log1p_net_sales` | future net_sales |
 
@@ -118,11 +117,9 @@ Any column whose value at time T encodes information about the target (net_quant
 
 | Model type | Active target (y) | Remaining target columns |
 |---|---|---|
-| Regressor | `target_qty_log1p` | Drop all others |
+| Regressor | `target_qty_raw` | Drop all others |
 | Stage-1 Classifier | `target_is_nonzero` | Drop all others |
-| Stage-2 Regressor (rows where target_is_nonzero==1) | `target_qty_log1p` | Drop all others |
-
-> **Important:** Drop `target_qty_raw` even for regressors; back-transform predictions using `np.expm1()` to get raw-unit predictions.
+| Stage-2 Regressor (rows where target_is_nonzero==1) | `target_qty_raw` | Drop all others |
 
 ---
 
@@ -143,7 +140,7 @@ Any column whose value at time T encodes information about the target (net_quant
 
 ## 5. Evaluation Metrics
 
-Both metrics are computed on back-transformed predictions (`np.expm1(y_pred_log)` vs `target_qty_raw`).
+Both metrics are computed directly on raw-unit predictions (`y_pred_raw` vs `target_qty_raw`).
 
 ### MAPE
 ```
@@ -170,7 +167,7 @@ src/modeling/
 ├── data_loader.py       load matrix, filter to grid cell, apply row-activity filter
 ├── feature_selector.py  return feature column list (drops forbidden columns, active target only)
 ├── splitter.py          time-based train/eval split on year_month
-├── metrics.py           mape(), wmape() — both operate on raw (back-transformed) scale
+├── metrics.py           mape(), wmape() — both operate on raw-unit scale
 ├── search.py            randomized_grid_search() — wraps RandomizedSearchCV + mlflow logging
 ├── regressor.py         train_regressor() — single-stage XGBRegressor pipeline
 ├── classifier.py        train_classifier() — Stage-1 XGBClassifier with scale_pos_weight
@@ -275,7 +272,7 @@ def train_regressor(df_train, df_eval, feature_cols, target_col,
         df_train: Training DataFrame.
         df_eval: Evaluation DataFrame.
         feature_cols: List of input feature column names.
-        target_col: Target column name (log-transformed).
+        target_col: Target column name (raw units, not log-transformed).
         param_grid: Hyperparameter search space dict.
         cfg: Full conf dict.
         model_name: Identifier used for MLflow and .pkl filename.
@@ -307,7 +304,7 @@ def train_two_stage(df_train, df_eval, feature_cols, cfg, model_name_prefix):
     """Train the two-stage classifier+regressor for lumpy demand cells.
 
     Stage 1: XGBClassifier on target_is_nonzero.
-    Stage 2: XGBRegressor on target_qty_log1p, trained only on nonzero-demand rows.
+    Stage 2: XGBRegressor on target_qty_raw, trained only on nonzero-demand rows.
 
     Args:
         df_train: Training DataFrame (full cell).
@@ -462,14 +459,12 @@ else:
 from src.modeling.two_stage import predict_two_stage
 
 X_eval = df_eval[feature_cols].values
-y_true_log  = df_eval[mod_cfg["target_regressor"]].values
-y_true_raw  = df_eval["target_qty_raw"].values
+y_true_raw = df_eval[mod_cfg["target_regressor"]].values
 
 if IS_TWO_STAGE:
     y_pred_raw = predict_two_stage(clf, reg, X_eval, mod_cfg["classifier_threshold"])
 else:
-    y_pred_log = reg.predict(X_eval)
-    y_pred_raw = np.expm1(y_pred_log)
+    y_pred_raw = reg.predict(X_eval)
 
 mape_val, zero_frac = mape(y_true_raw, y_pred_raw)
 wmape_val = wmape(y_true_raw, y_pred_raw)
@@ -495,7 +490,7 @@ print(f"Model(s) saved to {output_dir}")
 ### Model 1 — Power + Continuous  (`grid_cell = 0`)
 - **Notebook:** `pipelines/6_modeling/model_1_power_continuous.ipynb`
 - **Type:** XGBoost Regressor
-- **Target:** `target_qty_log1p`
+- **Target:** `target_qty_raw`
 - **Filter:** `cluster_definition == "Power"` AND `demand_class == "Continuous"`
 - **Feature emphasis:** Seasonal lag features (`lag_sales_12m`, `seasonal_index`, Fourier terms, `is_peak_month`) are most important here. STL analysis showed seasonal strength 0.936 for this segment.
 - **MLflow run name:** `model_1_power_continuous`
@@ -506,7 +501,7 @@ print(f"Model(s) saved to {output_dir}")
 ### Model 2 — Power + Intermittent  (`grid_cell = 1`)
 - **Notebook:** `pipelines/6_modeling/model_2_power_intermittent.ipynb`
 - **Type:** XGBoost Regressor
-- **Target:** `target_qty_log1p`
+- **Target:** `target_qty_raw`
 - **Filter:** `cluster_definition == "Power"` AND `demand_class == "Intermittent"`
 - **Feature emphasis:** Rolling aggregate features (`roll_mean_qty_3m`, `roll_nonzero_count_12m`, `demand_event_rate_6m`) and larger time windows for sparse demand capture.
 - **MLflow run name:** `model_2_power_intermittent`
@@ -518,7 +513,7 @@ print(f"Model(s) saved to {output_dir}")
 ### Model 3 — Power + Lumpy  (`grid_cell = 2`)
 - **Notebook:** `pipelines/6_modeling/model_3_power_lumpy.ipynb`
 - **Type:** XGBoost Regressor (single-stage; Power outlets have sufficient volume for direct regression)
-- **Target:** `target_qty_log1p`
+- **Target:** `target_qty_raw`
 - **Filter:** `cluster_definition == "Power"` AND `demand_class == "Lumpy"`
 - **Feature emphasis:** Same as Intermittent. Zero-inflation features (`months_since_last_purchase`, `demand_event_rate_6m`) critical.
 - **MLflow run name:** `model_3_power_lumpy`
@@ -530,7 +525,7 @@ print(f"Model(s) saved to {output_dir}")
 ### Model 4 — High-Value Active + Continuous  (`grid_cell = 3`)
 - **Notebook:** `pipelines/6_modeling/model_4_hva_continuous.ipynb`
 - **Type:** XGBoost Regressor
-- **Target:** `target_qty_log1p`
+- **Target:** `target_qty_raw`
 - **Filter:** `cluster_definition == "High-Value Active"` AND `demand_class == "Continuous"`
 - **Feature emphasis:** Seasonal features + outlet behaviour features (`outlet_loyalty_ratio`, `outlet_momentum`).
 - **MLflow run name:** `model_4_hva_continuous`
@@ -541,7 +536,7 @@ print(f"Model(s) saved to {output_dir}")
 ### Model 5 — High-Value Active + Intermittent  (`grid_cell = 4`)
 - **Notebook:** `pipelines/6_modeling/model_5_hva_intermittent.ipynb`
 - **Type:** XGBoost Regressor
-- **Target:** `target_qty_log1p`
+- **Target:** `target_qty_raw`
 - **Filter:** `cluster_definition == "High-Value Active"` AND `demand_class == "Intermittent"`
 - **Feature emphasis:** Rolling aggregates, zero-inflation features, `short_long_ratio`.
 - **MLflow run name:** `model_5_hva_intermittent`
@@ -558,7 +553,7 @@ print(f"Model(s) saved to {output_dir}")
   - Handle class imbalance: set `scale_pos_weight = count(zero) / count(nonzero)` automatically in `train_classifier()`
   - Scoring: `f1` (balanced for imbalanced classes)
 - **Stage 2:**
-  - Target: `target_qty_log1p`
+  - Target: `target_qty_raw`
   - Training data: **only rows where `target_is_nonzero == 1`** (nonzero demand events only)
   - This avoids zero-inflation bias in the regressor
   - Scoring: `neg_mean_absolute_error`
@@ -576,7 +571,7 @@ print(f"Model(s) saved to {output_dir}")
 ### Model 7 — Low-Value Sporadic + Continuous  (`grid_cell = 6`)
 - **Notebook:** `pipelines/6_modeling/model_7_lvs_continuous.ipynb`
 - **Type:** XGBoost Regressor
-- **Target:** `target_qty_log1p`
+- **Target:** `target_qty_raw`
 - **Filter:** `cluster_definition == "Low-Value Sporadic"` AND `demand_class == "Continuous"`
 - **Feature emphasis:** Seasonal features; LVS outlets have infrequent purchase so `outlet_avg_txn_per_active_month` and `outlet_loyalty_ratio` are useful segment discriminators.
 - **MLflow run name:** `model_7_lvs_continuous`
@@ -587,7 +582,7 @@ print(f"Model(s) saved to {output_dir}")
 ### Model 8 — Low-Value Sporadic + Intermittent  (`grid_cell = 7`)
 - **Notebook:** `pipelines/6_modeling/model_8_lvs_intermittent.ipynb`
 - **Type:** XGBoost Regressor
-- **Target:** `target_qty_log1p`
+- **Target:** `target_qty_raw`
 - **Filter:** `cluster_definition == "Low-Value Sporadic"` AND `demand_class == "Intermittent"`
 - **Feature emphasis:** Same as Model 5. `demand_event_rate_6m` and `months_since_last_purchase` are critical given sparse buying behaviour of LVS.
 - **MLflow run name:** `model_8_lvs_intermittent`
@@ -621,8 +616,8 @@ Every training run must log the following to MLflow:
 - `eval_wmape` (primary)
 - `eval_mape` (non-zero actuals only)
 - `eval_zero_fraction` (fraction of eval rows with zero actual demand)
-- `eval_mae` (on log scale for regressors)
-- `eval_rmse` (on log scale for regressors)
+- `eval_mae`
+- `eval_rmse`
 - `train_wmape`, `train_mape` (for overfitting check)
 - For classifiers: `eval_f1`, `eval_precision`, `eval_recall`, `eval_auc`
 
@@ -647,11 +642,11 @@ all_drop = (
 feature_cols = [c for c in df.columns if c not in all_drop]
 ```
 
-For **regressor models**: active target = `target_qty_log1p`; drop `target_qty_raw`, `target_is_nonzero`, `target_log1p_net_sales`.
+For **regressor models**: active target = `target_qty_raw`; drop `target_qty_log1p`, `target_is_nonzero`, `target_log1p_net_sales`.
 
 For **Stage-1 classifier**: active target = `target_is_nonzero`; drop `target_qty_raw`, `target_qty_log1p`, `target_log1p_net_sales`.
 
-For **Stage-2 regressor**: active target = `target_qty_log1p`; same drop list as regressor models (applied after filtering to nonzero rows).
+For **Stage-2 regressor**: active target = `target_qty_raw`; same drop list as regressor models (applied after filtering to nonzero rows).
 
 ---
 

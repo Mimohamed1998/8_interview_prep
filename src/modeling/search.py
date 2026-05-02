@@ -38,13 +38,19 @@ def randomized_grid_search(estimator, param_grid, X_train, y_train,
             for k, v in params.items():
                 print(f"          {k}: {v}")
 
-            if mean_score > best_score:
+            if not np.isnan(mean_score) and mean_score > best_score:
                 best_score = mean_score
                 best_params = params
 
         print(f"\n  Best CV score : {best_score:+.4f}")
         print(f"  Best params   : {best_params}")
         print(f"{'='*60}\n")
+
+        if best_params is None:
+            raise RuntimeError(
+                f"All {n_iter} CV candidates failed. Check for NaN/inf in your data "
+                "or reduce cv_splits if early folds are too small."
+            )
 
         best_model = clone(estimator)
         best_model.set_params(**best_params)
