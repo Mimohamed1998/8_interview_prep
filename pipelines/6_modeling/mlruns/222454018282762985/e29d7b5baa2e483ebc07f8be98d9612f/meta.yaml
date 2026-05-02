@@ -1,0 +1,14 @@
+artifact_uri: /Users/mohamedinas/Desktop/SE_projects/8_stax_interview/8_interview_prep/pipelines/6_modeling/mlruns/222454018282762985/e29d7b5baa2e483ebc07f8be98d9612f/artifacts
+end_time: 1777687915799
+entry_point_name: ''
+experiment_id: '222454018282762985'
+lifecycle_stage: active
+run_id: e29d7b5baa2e483ebc07f8be98d9612f
+run_name: model_0_power_continuous
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777687915186
+status: 4
+tags: []
+user_id: mohamedinas
