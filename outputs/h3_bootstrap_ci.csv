@@ -1,0 +1,2 @@
+Method,β3 mean,SE,95% CI lower,95% CI upper,CI includes zero
+"Cluster-Bootstrap (1,000 samples)",-0.1548,0.0901,-0.3323,0.0158,True

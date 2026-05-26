@@ -1,0 +1,10 @@
+Check,beta1,SE,t_stat,p_1tail,Sign_consistent
+Outliers excl (Cook D>4/n; removed 7),0.0192,0.0159,1.2072,0.1158,Yes
+Year 2020 OLS,0.4485,0.0576,7.7921,0.0,Yes
+Year 2021 OLS,0.4552,0.0562,8.0986,0.0,Yes
+Year 2022 OLS,0.4568,0.0662,6.9049,0.0,Yes
+Year 2023 OLS,0.4904,0.068,7.2166,0.0,Yes
+Group Developed OLS,-0.7582,0.1708,-4.4392,1.0,No
+Group Developing OLS,0.1342,0.0535,2.5076,0.0083,Yes
+Group Lower Governance OLS,0.3875,0.1232,3.1451,0.0024,Yes
+Lagged AI(t)->SDG(t+1) OLS,0.4472,0.0332,13.4691,0.0,Yes

@@ -1,0 +1,8 @@
+Hausman Test Result (RQ2: wgi_composite -> sdg_index_score)
+=======================================================
+Chi2 statistic     : 17.5977
+Degrees of freedom : 1
+p-value            : 0.0000
+Decision           : Fixed Effects preferred (p < 0.05)
+Selected model     : Fixed Effects
+Note: Cluster-robust SEs applied at country level in Fixed Effects model.

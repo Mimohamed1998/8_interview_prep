@@ -1,0 +1,7 @@
+=== Hausman Test (FE vs RE) ===
+H0: Random Effects estimator is consistent (RE preferred)
+Chi-squared statistic : 209.6582
+Degrees of freedom    : 1
+p-value               : 0.0000
+Decision              : Fixed Effects preferred (p < 0.05)
+Selected model        : Fixed Effects

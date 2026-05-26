@@ -1,0 +1,4 @@
+Model,beta1 (IV),SE,t-stat,p-value (2-tail),CI lower,CI upper,R2
+Pooled OLS,7.9755,0.4601,17.3361,0.0,7.0738,8.8772,0.7384
+Fixed Effects (Two-Way),0.9655,0.7512,1.2852,0.2027,-0.5314,2.4623,0.0177
+Random Effects,2.6981,0.6275,4.2998,0.0,1.4535,3.9427,0.096
