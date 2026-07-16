@@ -1,5 +1,0 @@
-Subset,N,Pearson r,p-value (Pearson),95% CI lower,95% CI upper,Spearman rho,p-value (Spearman)
-Pooled (all),104,0.8593,0.0,0.7989,0.9025,0.8078,0.0
-Developed,40,0.5913,1e-04,0.3429,0.7624,0.685,0.0
-Developing,40,-0.4043,0.0097,-0.6357,-0.1062,-0.467,0.0024
-Lower Governance,24,0.6374,0.0008,0.3149,0.8279,0.5174,0.0096

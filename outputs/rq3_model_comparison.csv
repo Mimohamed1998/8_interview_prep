@@ -1,4 +1,0 @@
-Model,Predictors,R²,Adj R²,AIC,BIC,ΔR²,F (change),p (F-change),ΔR² (vs M1)
-M1 — AI Readiness only,AI_centered,0.6966,0.6937,642.58,647.87,-,-,-,
-M2 — Governance only,WGI_centered,0.7384,0.7358,627.19,632.48,-,-,-,
-M3 — Full Moderation (RQ3),AI_centered + WGI_centered + AI×WGI,0.8062,0.8004,599.97,610.54,,28.2754,0.0,0.1096

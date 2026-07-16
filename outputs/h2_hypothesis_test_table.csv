@@ -1,5 +1,0 @@
-Model,β₁ (WGI Composite),SE,t-stat (1-tail),p-value (1-tail),95% CI lower (1-tail),95% CI upper,R²,Decision
-Pooled OLS,7.9755,0.4601,17.3343,0.0,7.2186,8.8772,0.7384,Reject H0 ✅
-Fixed Effects (Two-Way),0.9655,0.7512,1.2853,0.1008,-0.2702,2.4623,0.0177,Fail to Reject H0 ❌
-Random Effects,2.6981,0.6275,4.2998,0.0,1.6659,3.9427,0.096,Reject H0 ✅
-"★ Selected (FE, Hausman χ²=17.60 p<0.0001)",0.9655,0.7512,1.2853,0.1008,-0.2702,2.4623,0.0177,Fail to Reject H0 ❌ (β₁>0 but p=0.1008>0.05)

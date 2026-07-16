@@ -1,4 +1,0 @@
-Model,beta1,SE,t_stat,p_2tail,p_1tail,CI_lower_1tail,CI_lower_2tail,CI_upper_2tail,R2,Cohens_f2,Decision_H1
-Pooled OLS,0.4589,0.0338,13.5799,0.0,0.0,0.4033,0.3927,0.5251,0.6966,2.2963,Reject H0
-Fixed Effects (Two-Way) SELECTED,0.0206,0.0157,1.3149,0.1926,0.0963,-0.0052,-0.0101,0.0513,0.0458,0.048,Fail to reject H0
-Random Effects,0.0584,0.0155,3.7789,0.0003,0.0001,0.033,0.0281,0.0887,0.139,0.1615,Reject H0

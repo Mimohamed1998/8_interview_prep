@@ -1,3 +1,0 @@
-Group,N (obs),N (countries),β₁ (AI Readiness),SE,p-value,CI lower,CI upper,R²
-High Governance (≥ P75),28,7,-1.0453,0.3619,0.0039,-1.7546,-0.3359,0.32
-Low Governance (≤ P25),28,7,0.6122,0.0649,0.0,0.4851,0.7394,0.5309
