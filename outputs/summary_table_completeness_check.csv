@@ -1,0 +1,5 @@
+table,coef_table_complete,fit_stats_complete,effective_n,note
+model_a_static_ols_coefficients.csv,True,True,35,"N=35 -- full 1990-2024 sample, no lags/differencing consumed"
+model_b_first_differenced_ols_coefficients.csv (PRIMARY),True,True,34,N=34 -- one observation lost to first-differencing; does NOT match Model A's N=35
+ardl_capped_1_1_long_run_coefficients.csv (secondary/exploratory),True,True,34,"ECM-level fit stats are the bounds-test F-stat (ardl_capped_1_1_bounds_test.csv) plus the error-correction term (ardl_capped_1_1_error_correction_term.csv), per requirement 2's ECM-equivalent allowance; N=34, capped ARDL(1,1)"
+ardl_capped_1_1_short_run_coefficients.csv (supplementary),True,True,34,"Supplementary evidence only, per requirement 7's precedence -- not a primary basis for H1/H2"

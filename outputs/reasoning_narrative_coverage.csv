@@ -1,0 +1,10 @@
+notebook,markdown_cells,code_cells,markdown_word_count,markdown_words_per_code_cell,passes_reasoning_floor
+i_data_preparation.ipynb,8,8,396,49.5,True
+ii_descriptive_statistics_and_trend_analysis.ipynb,8,9,862,95.8,True
+iii_stationarity_testing.ipynb,15,17,1405,82.6,True
+iv_multicollinearity_check.ipynb,6,6,461,76.8,True
+v_decision_branch.ipynb,6,6,936,156.0,True
+a_model_a_static_ols.ipynb,10,9,733,81.4,True
+b_model_b_ardl_bounds_testing.ipynb,14,15,1699,113.3,True
+vi_estimation.ipynb,19,22,2508,114.0,True
+vii_post_estimation_diagnostics.ipynb,17,31,3141,101.3,True

@@ -1,0 +1,14 @@
+regressor,model_a_static_ols,first_differenced_ols,"ardl_long_run_grid_(1,2)","ardl_long_run_capped_(1,1)"
+const,-2.3345***,0.0306,,
+DIVP,1.2680**,2.3529*,0.0194,-1.0451
+DIVM,-0.8055,-1.4024,1.2413,1.2054
+INF,-0.0041,0.0002,-0.0074,0.0022
+EXR,-0.0009**,-0.0035*,0.0003,0.0001
+log(FDI),0.1428***,0.1173**,-0.1869**,-0.1301**
+SHOCK,-0.0203,-0.0105,-0.0330,0.0228
+"theta1 (ERI.L1, ECT)",,,"-1.0060*** (ECM, not a long-run coef)","-0.7585*** (ECM, not a long-run coef)"
+n_obs,35,34,34,34
+df_resid,,,14,20
+"ardl_(p,q)",,,"(1,2) [AIC grid search]","(1,1) [capped, no search]"
+bounds_test_cointegration,,,inconclusive,inconclusive
+carried_forward_to_step_vii,,,no,yes

@@ -1,0 +1,3 @@
+requirement,status,detail
+All output artifacts in one shared outputs/ folder (no per-model subfolders),PASS,"42 files directly under outputs/; 4 Model-A-prefixed, 15 Model-B/ARDL-prefixed, no per-model subfolders (none found)"
+Chapter 4 draft produced as a separate markdown/Word document,PENDING,"Not yet created -- out of scope for this notebook (requirement c is a reporting convention that governs the eventual draft's tone/content, not a step that writes it); no chapter_4/ch4 file found under the project root."

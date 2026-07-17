@@ -1,0 +1,5 @@
+order,test,statistic,df,p_value,decision_at_5pct,interpretation,added_beyond_ch3_7
+1,"Durbin-Watson (Savin-White 5% bounds, n=35, k=6)",1.5565723330739998,"dL=1.16, dU=1.803",,inconclusive (DW falls in the bounds-test gray zone),"DW=1.5566 vs. Savin-White 5% bounds dL=1.16, dU=1.803 (n=35, k=6) -> inconclusive (DW falls in the bounds-test gray zone).",False
+2,Breusch-Pagan LM,3.6502340902257293,6,0.7238861784707011,fail to reject H0 (p >= 0.05),"Breusch-Pagan LM = 3.6502 (df=6), p=0.7239 -> no significant heteroskedasticity at 5%.",False
+3,Jarque-Bera,0.6191616759873957,2,0.7337544537631169,fail to reject H0 (p >= 0.05),"JB = 0.6192 (skew=0.2934, kurtosis=2.7167), p=0.7338 -> no evidence against residual normality at 5%.",True
+4,Ramsey RESET,0.011244142212628254,"(2,26)",0.9888236424753056,fail to reject H0 (p >= 0.05),"RESET F(2,26) = 0.0112, p=0.9888 -> no evidence of functional-form misspecification at 5%.",True

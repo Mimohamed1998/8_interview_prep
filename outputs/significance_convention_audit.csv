@@ -1,0 +1,6 @@
+table,n_rows,stars_recomputed_match_stored,n_mismatches
+model_a_static_ols_coefficients.csv,7,True,0
+model_b_first_differenced_ols_coefficients.csv,7,True,0
+ardl_capped_1_1_long_run_coefficients.csv,7,True,0
+ardl_capped_1_1_short_run_coefficients.csv,6,True,0
+ardl_capped_1_1_error_correction_term.csv,1,True,0

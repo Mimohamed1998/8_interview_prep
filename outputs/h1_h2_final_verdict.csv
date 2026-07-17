@@ -1,0 +1,13 @@
+hypothesis,regressor,role,model,coef,p_value,verdict
+H1,DIVP,"baseline (literal-thesis, naive reader)",Model A -- static OLS on levels (original SE),1.268048920110687,0.0443538266440477,SUPPORTED at the 5% level (expected sign)
+H1,DIVP,"baseline (literal-thesis, naive reader)",Model A -- static OLS on levels (HAC-robust SE),1.268048920110687,0.0355031522899386,SUPPORTED at the 5% level (expected sign)
+H1,DIVP,PRIMARY (redesignated 2026-07-17),First-differenced OLS (original SE),2.3529278361384054,0.0995312193514853,SUPPORTED at the 10% level (expected sign)
+H1,DIVP,PRIMARY (redesignated 2026-07-17),First-differenced OLS (HAC-robust SE),2.3529278361384054,0.0572879630792351,SUPPORTED at the 10% level (expected sign)
+H1,DIVP,secondary/exploratory (bounds test NOT confirmed),"ARDL(1,1) long-run coefficient (delta-method SE)",-1.0450924071693872,0.2876672195090615,AMBIGUOUS -- not significant at 10%
+H1,DIVP,secondary/exploratory (bounds test NOT confirmed),"ARDL(1,1) long-run coefficient (HAC-robust SE)",-1.0450924071693872,0.1379043722539002,AMBIGUOUS -- not significant at 10%
+H2,DIVM,"baseline (literal-thesis, naive reader)",Model A -- static OLS on levels (original SE),-0.8054806049572255,0.3719271757296714,AMBIGUOUS -- not significant at 10%
+H2,DIVM,"baseline (literal-thesis, naive reader)",Model A -- static OLS on levels (HAC-robust SE),-0.8054806049572255,0.2159710417080342,AMBIGUOUS -- not significant at 10%
+H2,DIVM,PRIMARY (redesignated 2026-07-17),First-differenced OLS (original SE),-1.4023679591902016,0.1903542191687482,AMBIGUOUS -- not significant at 10%
+H2,DIVM,PRIMARY (redesignated 2026-07-17),First-differenced OLS (HAC-robust SE),-1.4023679591902016,0.0915472931400762,"SIGNIFICANT at the 10% level but OPPOSITE the expected sign -- a genuine finding, not an error"
+H2,DIVM,secondary/exploratory (bounds test NOT confirmed),"ARDL(1,1) long-run coefficient (delta-method SE)",1.205364513715346,0.4729552505792584,AMBIGUOUS -- not significant at 10%
+H2,DIVM,secondary/exploratory (bounds test NOT confirmed),"ARDL(1,1) long-run coefficient (HAC-robust SE)",1.205364513715346,0.0966701402458791,SUPPORTED at the 10% level (expected sign)

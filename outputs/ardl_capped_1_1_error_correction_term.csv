@@ -1,0 +1,2 @@
+term,coef,std_err,t_stat,p_value,significance,negative_and_significant_at_5pct,within_minus1_to_0
+"ERI.L1 (error-correction term, theta1)",-0.7585156900905732,0.23776427377419262,-3.190200436971216,0.004597878414751432,***,True,True

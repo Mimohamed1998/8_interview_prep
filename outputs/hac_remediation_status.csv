@@ -1,0 +1,2 @@
+computed,formally_triggered_by_clean_rejection,reason,maxlags,maxlags_formula,T,dw_bounds_test_verdict,breusch_pagan_p_value
+True,False,"Computed regardless of a strict trigger: Savin-White DW bounds test on Model A came back inconclusive at 5% (DW=1.5566, dL=1.16, dU=1.803), and Breusch-Pagan was clean (p=0.7239). Reported as a precautionary robustness check and EViews cross-check, not because a formal rejection strictly triggered it.",3,floor(4*(T/100)^(2/9)),35,inconclusive (DW falls in the bounds-test gray zone),0.7238861784707011

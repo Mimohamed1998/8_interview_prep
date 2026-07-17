@@ -1,0 +1,6 @@
+check,n_obs,divp_coef,divp_p_original,divp_sig_original,divp_p_hac,divp_sig_hac,divm_coef,divm_p_original,divm_sig_original,divm_p_hac,divm_sig_hac,note
+"Baseline (1990-2024, primary model, for reference)",34.0,2.3529278361384054,0.0995312193514853,*,0.05728796307923517,*,-1.4023679591902016,0.1903542191687482,,0.0915472931400762,*,Full sample; primary model per the 2026-07-17 redesignation.
+Check 1 -- restricted to 1990-2023,33.0,2.0857529402077186,0.11139156664325892,,0.06924349213214195,*,-0.973747287801254,0.3245193713046973,,0.15347213730339634,,Drops the 2024 observation (step-i deviation from the literal thesis text).
+Check 2 -- excluding shock-year observations,29.0,2.1091564693524805,0.12198606005820349,,0.07172004838670606,*,-0.12938752203766293,0.8984278092618013,,0.7949980962888512,,SHOCK regressor dropped (degenerate after filtering); 30 obs (29 post-differencing).
+Check 3 -- raw FDI instead of log(FDI),34.0,1.5175736772711244,0.2782010262077218,,0.1450966002002147,,-0.9637219176005714,0.3672376898824754,,0.14022678580665376,,Direct counter-check on the step-i log-transform deviation.
+Check 4 -- alternate ARDL lag length,,,,N/A,,N/A,,,N/A,,N/A,"N/A for the primary-model table -- first-differenced OLS has no lag structure. ARDL(1,1) lag sensitivity already explored in steps vi/vii (see markdown above); not re-run here (optional per the plan)."

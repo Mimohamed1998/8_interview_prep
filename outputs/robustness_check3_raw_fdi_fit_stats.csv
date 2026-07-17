@@ -1,0 +1,2 @@
+package_function,n_obs,r_squared,adj_r_squared,f_statistic,f_pvalue
+statsmodels.api.OLS,34,0.4229441356837249,0.294709499168997,3.298205127560443,0.014473571715836612

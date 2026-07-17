@@ -16,14 +16,30 @@ one year beyond the 1990–2023 scope stated in the attached thesis PDF; see dat
 written methodology (Ch. 3.5) specifies a static OLS model. That is only valid if all
 regressors are stationary. Given the visible trends in the exchange rate and FDI series, this
 project runs **OLS as the literal-thesis baseline**, but if stationarity testing (step d.iii)
-shows a mix of I(0)/I(1) variables, **ARDL bounds testing (Pesaran, Shin & Smith, 2001)
-becomes the primary model for inference**, with OLS retained and reported alongside it as the
-methodology-baseline comparison. Rationale: with 6 regressors and ~34–35 annual observations,
-OLS-on-levels with a trending regressor risks a spurious regression, OLS-on-differences loses
-the long-run relationship the research questions actually ask about, and a full Johansen VECM
-is over-parameterised for this sample size — ARDL is the standard, sample-efficient response to
-exactly this situation (mixed integration orders, small T, a genuine long-run question). See
-Section e for both specifications.
+shows a mix of I(0)/I(1) variables, **ARDL bounds testing (Pesaran, Shin & Smith, 2001) was
+planned to become the primary model for inference** ⚠️ **[Superseded 2026-07-17 — see Update
+below]**, with OLS retained and reported alongside it as the methodology-baseline comparison.
+Rationale: with 6 regressors and ~34–35 annual observations, OLS-on-levels with a trending
+regressor risks a spurious regression, OLS-on-differences loses the long-run relationship the
+research questions actually ask about, and a full Johansen VECM is over-parameterised for this
+sample size — ARDL is the standard, sample-efficient response to exactly this situation (mixed
+integration orders, small T, a genuine long-run question). See Section e for both
+specifications.
+
+> **Update, 2026-07-17 — primary model redesignated after post-estimation diagnostics (step
+> vii).** Branch B was confirmed (mixed I(0)/I(1), no I(2)), so ARDL was estimated as planned.
+> But the ARDL bounds test (step vi) did not confirm cointegration at either the grid-searched
+> AIC(1,2) specification (F=2.8230 vs. 5% bounds [2.328, 3.500]) or the leanest capped ARDL(1,1)
+> specification (F=2.3658, same bounds) — both inconclusive at 5%, both below the 1% lower
+> bound. Step vii's Breusch-Godfrey test additionally flagged uncorrected serial correlation in
+> the capped ARDL(1,1) at lag 2 (LM(2)=6.841, p=0.0327, significant at 5%; the lag-1 result
+> matching the model's own lag structure was only borderline, p=0.0685). The first-differenced
+> OLS, by contrast, passed its full step vii diagnostic battery cleanly. **Decision: the
+> first-differenced OLS is now the primary model for H1/H2 inference; ARDL(1,1) is retained and
+> reported as a secondary/exploratory specification**, not the primary evidentiary basis for
+> H1/H2. Static OLS on levels remains the literal-thesis baseline, unchanged. Full rationale and
+> evidence trail: `outputs/modeling_path_decision.csv` (addendum), `outputs/diagnostics_model_b_ardl_capped.csv`,
+> `outputs/diagnostics_model_diff_ols.csv`.
 
 The theoretical grounding is: classical trade theory (specialisation vs. vulnerability),
 portfolio diversification theory (Markowitz, applied to export revenue volatility), and
@@ -156,7 +172,10 @@ the written methodology chapter:
 ERI = β0 + β1·DIVP + β2·DIVM + β3·INF + β4·EXR + β5·log(FDI) + β6·SHOCK + ε
 ```
 
-**Model B — ARDL(p,q) bounds testing (primary model if step d.v triggers it).**
+**Model B — ARDL(p,q) bounds testing (secondary/exploratory as of 2026-07-17 — see the Update
+note under "Modeling approach" above; originally planned as the primary model if step d.v
+triggered Branch B, but the bounds test did not confirm cointegration and step vii flagged
+uncorrected serial correlation, so the first-differenced OLS is now primary for H1/H2).**
 Conditional Error Correction (ECM) form:
 
 ```
@@ -234,9 +253,13 @@ Deliverable is a draft of **Chapter 4: Empirical Analysis and Findings**, struct
   choice if AIC and BIC disagree, what to do if a variable tests as I(2)) — flag the decision,
   state the default you're using, and note the alternative so I can override it. The study
   period is already settled: use 1990–2024 (35 obs) as the baseline, 1990–2023 as the
-  robustness check. The modeling approach is already settled: OLS always reported as the
-  literal-thesis baseline; ARDL becomes the primary model for inference only if ADF confirms
-  mixed I(0)/I(1) regressors with no I(2).
+  robustness check. The modeling approach was originally settled as: OLS always reported as the
+  literal-thesis baseline; ARDL primary for inference only if ADF confirms mixed I(0)/I(1)
+  regressors with no I(2). **Superseded 2026-07-17** (see the Update note under "Modeling
+  approach" in Section a): Branch B did trigger, but the ARDL bounds test came back
+  inconclusive and step vii flagged uncorrected serial correlation in the ARDL residuals, so
+  this was itself a judgment call flagged and made on the user's explicit direction, not
+  guessed — the first-differenced OLS is now primary for H1/H2, ARDL(1,1) secondary/exploratory.
 - **Output format:** save all code (Python scripts or notebook), the regression/diagnostic
   output, and charts to an outputs folder. Produce the Chapter 4 draft as a separate markdown
   or Word document, written in formal academic thesis style consistent with the tone of the

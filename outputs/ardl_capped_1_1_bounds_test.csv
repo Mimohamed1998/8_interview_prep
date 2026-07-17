@@ -1,0 +1,5 @@
+case,k_regressors,confidence_level_pct,crit_lower,crit_upper,f_stat,between_bounds,above_upper,below_lower
+3,6,90.0,2.0305429,3.136325,2.3657534235492124,True,False,False
+3,6,95.0,2.3281704,3.4999128,2.3657534235492124,True,False,False
+3,6,99.0,2.9569345,4.2519893,2.3657534235492124,False,False,True
+3,6,99.9,3.7788337,5.2075305,2.3657534235492124,False,False,True
