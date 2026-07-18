@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "Bash(python3 -c ' *)",
-      "Bash(xargs ls *)"
+      "Bash(xargs ls *)",
+      "Bash(python3 -m pip install statsmodels)",
+      "Bash(python3 -m pip show pandas)",
+      "Bash(python3 -c \"import sys; print\\(sys.path\\)\")",
+      "Bash(python3 -m pip install --break-system-packages statsmodels)",
+      "Bash(python3 -c \"import jupytext\")",
+      "Bash(python3 /private/tmp/claude-501/-Users-mohamedinas-Desktop-SE-projects-11-fathima-research-1-eda-and-modeling-8-interview-prep/26107b15-6df9-4576-9981-c38aa3f84184/scratchpad/build_iii_notebook.py)",
+      "Bash(python3 -c \"import arch; print\\(arch.__version__\\)\")",
+      "Bash(python3 -c \"from statsmodels.tsa.stattools import adfuller; import inspect; print\\(inspect.signature\\(adfuller\\)\\)\")",
+      "Bash(python3 -m pip install --break-system-packages arch)",
+      "Bash(python3 -)",
+      "Bash(python3 /private/tmp/claude-501/-Users-mohamedinas-Desktop-SE-projects-11-fathima-research-1-eda-and-modeling-8-interview-prep/26107b15-6df9-4576-9981-c38aa3f84184/scratchpad/build_iv_notebook.py)",
+      "Bash(python3 /private/tmp/claude-501/-Users-mohamedinas-Desktop-SE-projects-11-fathima-research-1-eda-and-modeling-8-interview-prep/26107b15-6df9-4576-9981-c38aa3f84184/scratchpad/build_v_notebook.py)",
+      "Bash(python3 -c \"from statsmodels.tsa.ardl import ARDL, ardl_select_order; print\\('ok'\\)\")",
+      "Bash(python3 -c \"from statsmodels.tsa.ardl import UECM; print\\('uecm ok'\\)\")"
     ]
   }
 }
